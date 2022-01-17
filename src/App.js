@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
 import TodoFeature from "./features/Todo"
 import AlbumFeature from "./features/Album"
 import NotFound from './components/NotFound';
+import productApi from './api/productApi';
 function App() {
+  useEffect(() => {
+    const featchProduct = async() => {
+      const params = {
+        _limit: 10,
+      }
+      const productList = await productApi.getAll(params);
+      // console.log(productList);
+    }
+
+    featchProduct();
+  }, []);
+
+
   return (
     <div className="App">
       <h1>Header</h1>
