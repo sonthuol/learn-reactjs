@@ -4,6 +4,7 @@ import TodoFeature from "./features/Todo"
 import AlbumFeature from "./features/Album"
 import NotFound from './components/NotFound';
 import productApi from './api/productApi';
+import CounterFeature from './features/Counter';
 function App() {
   useEffect(() => {
     const featchProduct = async() => {
@@ -27,6 +28,7 @@ function App() {
       <Switch>
         <Redirect from='/home' to="/"/>
         <Route path="/" component={TodoFeature} exact/>
+        <Route path="/counter" component={CounterFeature}/>
         <Route path="/todos" component={TodoFeature}/>
         <Route path="/albums" component={AlbumFeature}/>
 
