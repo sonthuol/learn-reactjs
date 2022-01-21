@@ -1,38 +1,42 @@
-import React, { useEffect } from 'react';
-import { Link, Redirect, Route, Switch } from 'react-router-dom';
-import TodoFeature from "./features/Todo"
-import AlbumFeature from "./features/Album"
+import Header from 'components/Header';
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import NotFound from './components/NotFound';
-import productApi from './api/productApi';
+import AlbumFeature from "./features/Album";
 import CounterFeature from './features/Counter';
+import {Button } from "@material-ui/core";
+import TodoFeature from "./features/Todo";
+import { useSnackbar } from 'notistack';
+
+
 function App() {
-  useEffect(() => {
-    const featchProduct = async() => {
-      const params = {
-        _limit: 10,
-      }
-      const productList = await productApi.getAll(params);
-      // console.log(productList);
-    }
+  const {enqueueSnackbar} = useSnackbar();
 
-    featchProduct();
-  }, []);
+  // useEffect(() => {
+  //   const featchProduct = async() => {
+  //     const params = {
+  //       _limit: 10,
+  //     }
+  //     const productList = await productApi.getAll(params);
+  //   }
 
+  //   featchProduct();
+  // }, []);
 
+  const showNoti = () => {
+    enqueueSnackbar('Register successfully', {variant: 'success'});
+  }
+   
   return (
     <div className="App">
-      <h1>Header</h1>
-      <p><Link to="/home">Home</Link></p>
-      <p><Link to="/todos">Todo</Link></p>
-      <p><Link to="/albums">Album</Link></p>
+      <Header/>
+      <Button onClick={showNoti}>Show noti</Button>
       <Switch>
         <Redirect from='/home' to="/"/>
         <Route path="/" component={TodoFeature} exact/>
         <Route path="/counter" component={CounterFeature}/>
         <Route path="/todos" component={TodoFeature}/>
         <Route path="/albums" component={AlbumFeature}/>
-
-
         <Route component={NotFound}/>
       </Switch>
       <h1>Footer</h1>
